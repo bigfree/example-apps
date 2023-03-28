@@ -1,16 +1,20 @@
-export type Meta = {
-    total: number;
-    petPage: number;
+export type ResponseMeta = {
+    totalItems: number;
+    itemCount: number;
+    itemsPerPage: number;
+    totalPages: number;
     currentPage: number;
-    lastPage: number;
-    firstPage: number;
-    firstPageUrl: string;
-    lastPageUrl: string;
-    nextPageUrl: string | null;
-    previousPageUrl: string | null;
+}
+
+export type ResponseLinks = {
+    first: string;
+    previous: string;
+    next: string;
+    last: string;
 }
 
 export type ResponseWithPaginate<T> = {
-    meta: Meta
-    data: T;
+    items: T;
+    meta: ResponseMeta;
+    links: ResponseLinks;
 }

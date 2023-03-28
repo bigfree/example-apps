@@ -10,43 +10,40 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   redis:
     container_name: redis
     image: redis:latest
     volumes:
       - redis_volume:/data
+    environment:
+      ALLOW_EMPTY_PASSWORD: yes
+      REDIS_HOST: 127.0.0.1
     ports:
-      - 6379:6379
+      - "6379:6379"
 
-  adonis_app:
-    container_name: adonis_app
+  nest_app:
+    container_name: nest_app
     depends_on:
       - postgres
       - redis
     build:
-      context: ./adonis
+      context: ./nestjs
       dockerfile: ./Dockerfile
-      target: dependencies
-    ports:
-      - ${PORT}:${PORT}
-      - "9229:9229"
+      target: development
+    volumes:
+      - ./nestjs:/usr/src/app
     env_file:
       - .env
-    environment:
-      - PG_HOST=postgres
-      - REDIS_HOST=redis
-    volumes:
-      - ./adonis:/home/node/app
-      # Uncomment the below line if you developing on MacOS
-      #- /home/node/app/node_modules
-    command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0"
+    command: yarn start:dev
+    ports:
+      - '4000:4000'
 
   react_app:
     container_name: react_app
     depends_on:
-      - adonis_app
+      - nest_app
     build:
       context: ./react
       dockerfile: ./Dockerfile

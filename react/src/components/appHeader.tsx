@@ -1,16 +1,28 @@
+import { ActionIcon, Box, Group, Header } from '@mantine/core';
+import { IconBell, IconBrandSafari } from '@tabler/icons-react';
 import { FC } from 'react';
-import { Box, Header } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
 const AppHeader: FC = (): JSX.Element => {
     return (
-        <Box
-            sx={(theme) => ({
-                width: '100%',
-                borderBottom: `1px solid ${theme.colors.gray[3]}`
-            })}
-        >
-            Header
-        </Box>
+        <Header height={65} p={'md'}>
+            <Group position={'apart'}>
+                <Box component={Link} to={'/'} sx={(theme) => ({
+                    fontSize: theme.fontSizes.lg,
+                    color: theme.colors.gray[8],
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                })}>
+                    <Group position={'left'}>
+                        <IconBrandSafari />
+                        My APP
+                    </Group>
+                </Box>
+                <ActionIcon size={'lg'}>
+                    <IconBell color={'black'} />
+                </ActionIcon>
+            </Group>
+        </Header>
     );
 };
 

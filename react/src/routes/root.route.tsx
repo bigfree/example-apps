@@ -1,33 +1,33 @@
-import { AppShell, Aside, Flex, Footer, MediaQuery, Navbar } from '@mantine/core';
+import { AppShell, Flex } from '@mantine/core';
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import AppHeader from '../components/appHeader';
+import AppNavbarComponent from '../components/app-navbar/app-navbar.component';
 
 const RootRoute: FC = (): JSX.Element => {
 
     return (
         <AppShell
-            padding={'sm'}
-            // header={<AppHeader/>}
-            navbar={<Navbar width={{base: 300}}>aaa</Navbar>}
+            padding={0}
+            navbar={<AppNavbarComponent />}
             sx={(theme) => ({
-                backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+                backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.white,
+                height: '100vh',
             })}
         >
-            <div>
-                <Flex
-                    mih={50}
-                    gap="0"
-                    justify="flex-start"
-                    align="flex-start"
-                    direction="column"
-                    wrap="wrap"
-                >
-                    <AppHeader/>
-                    <div>asd</div>
-                    <Outlet/>
-                </Flex>
-            </div>
+            <Flex
+                gap='0'
+                justify='flex-start'
+                align='stretch'
+                direction='column'
+                wrap='nowrap'
+                sx={{
+                    width: '100%',
+                    height: 'calc(100vh - var(--mantine-header-height, 0px))',
+                }}
+            >
+                <Outlet />
+            </Flex>
         </AppShell>
     );
 };
