@@ -21,6 +21,7 @@ export type User = {
     lastName: string;
     fullName: string;
     email: string;
+    password?: string;
     status: AccountStatusEnum;
     createdAt: Date;
     updatedAt: Date;
@@ -33,4 +34,8 @@ export type User = {
 
 export type CreateUser = Pick<User, 'firstName' | 'lastName' | 'email' | 'status'>;
 
-export type AuthUser = Pick<User, 'id' | 'email' | 'status'>
+export type CreateAuthUser = Pick<User, 'firstName' | 'lastName' | 'email' | 'password'>;
+
+export type LoginAuthUser = Pick<User, 'email' | 'password'>;
+
+export type AuthUser = Pick<User, 'email' | 'id' | 'status'>

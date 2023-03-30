@@ -6,7 +6,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RequireAuthComponent from './auth/require-auth.component';
 import ErrorRoute from './routes/error.route';
+import LoginRoute from './routes/login.route';
 import RootRoute from './routes/root.route';
 import TasksRoute from './routes/tasks/tasks.route';
 import UserLogsRoute from './routes/user/user-logs.route';
@@ -33,7 +35,7 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <RootRoute />,
+        element: <RequireAuthComponent><RootRoute /></RequireAuthComponent>,
         errorElement: <ErrorRoute />,
         children: [
             {
@@ -67,6 +69,10 @@ const router = createBrowserRouter([
                 element: <TasksRoute />,
             },
         ],
+    },
+    {
+        path: '/login',
+        element: <LoginRoute />,
     },
 ]);
 
