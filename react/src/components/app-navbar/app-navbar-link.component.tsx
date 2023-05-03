@@ -13,13 +13,13 @@ const AppNavbarLinkComponent: FC<AppNavbarLinkProps> = ({ link }): JSX.Element =
             ...theme.fn.focusStyles(),
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             textDecoration: 'none',
             fontSize: theme.fontSizes.sm,
             color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
-            padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
-            borderRadius: theme.radius.sm,
+            height: '70px',
             fontWeight: 500,
-
+            borderBottom: `1px solid ${theme.colors.gray[2]}`,
             '&:hover': {
                 backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
                 color: theme.colorScheme === 'dark' ? theme.white : theme.black,
@@ -29,11 +29,11 @@ const AppNavbarLinkComponent: FC<AppNavbarLinkProps> = ({ link }): JSX.Element =
                 },
             },
         })}>
-            <link.icon stroke={1.8} sx={(theme) => ({
+            <link.icon stroke={1.8} size={34} sx={(theme) => ({
                 ref: getStylesRef('icon'),
                 color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
             })} />
-            <Text pl={'xs'}>{link.label}</Text>
+            {/*<Text pl={'xs'}>{link.label}</Text>*/}
         </Box>
     );
 };

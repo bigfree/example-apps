@@ -22,19 +22,16 @@ const AppInfoComponent: FC = (): JSX.Element => {
                     })}>
                         <Group spacing={'xs'}>
                             <IconBrandAbstract size={26} stroke={'1.8'} />
-                            <Title order={5}>
-                                My APP
-                            </Title>
                         </Group>
                     </Box>
-                    <ActionIcon variant={'filled'} sx={(theme) => ({
-                        backgroundColor: theme.colors.gray[1],
-                        '&:hover': {
-                            backgroundColor: theme.colors.gray[2],
-                        },
-                    })} size={'lg'}>
-                        <IconBell color={'black'} size={22} stroke={1.8} />
-                    </ActionIcon>
+                    {/*<ActionIcon variant={'filled'} sx={(theme) => ({*/}
+                    {/*    backgroundColor: theme.colors.gray[1],*/}
+                    {/*    '&:hover': {*/}
+                    {/*        backgroundColor: theme.colors.gray[2],*/}
+                    {/*    },*/}
+                    {/*})} size={'lg'}>*/}
+                    {/*    <IconBell color={'black'} size={22} stroke={1.8} />*/}
+                    {/*</ActionIcon>*/}
                 </Group>
             </Navbar.Section>
         </Fragment>

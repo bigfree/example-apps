@@ -12,18 +12,6 @@ services:
     ports:
       - "5432:5432"
 
-  mongo:
-    container_name: mongo
-    image: mongo:latest
-    volumes:
-      - mongo_volume:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: mongo
-      MONGO_INITDB_DATABASE: admin
-    ports:
-      - "27017:27017"
-
   redis:
     container_name: redis
     image: redis:latest
@@ -68,5 +56,5 @@ services:
 
 volumes:
   postgres_volume:
-  mongo_volume:
+  mongodb_volume:
   redis_volume:

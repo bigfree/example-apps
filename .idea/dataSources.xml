@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="dockerAPI@localhost" uuid="8f4a92a5-7b95-41f6-8425-83129dc40d37">
+    <data-source source="LOCAL" name="dockerPostres@localhost" uuid="8f4a92a5-7b95-41f6-8425-83129dc40d37">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="dockerRedisAPI@localhost" uuid="732c806e-cdf9-4c0f-b18d-6f8db7a86a0d">
+    <data-source source="LOCAL" name="dockerRedis@localhost" uuid="732c806e-cdf9-4c0f-b18d-6f8db7a86a0d">
       <driver-ref>redis</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>jdbc.RedisDriver</jdbc-driver>

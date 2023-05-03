@@ -1,8 +1,9 @@
-import { AppShell, Flex } from '@mantine/core';
+import { AppShell, Flex, Header } from '@mantine/core';
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import AppHeader from '../components/appHeader';
 import AppNavbarComponent from '../components/app-navbar/app-navbar.component';
+import 'reactflow/dist/style.css';
 
 const RootRoute: FC = (): JSX.Element => {
 
@@ -10,6 +11,7 @@ const RootRoute: FC = (): JSX.Element => {
         <AppShell
             padding={0}
             navbar={<AppNavbarComponent />}
+            header={<Header height={60} p="xs">{/* Header content */}</Header>}
             sx={(theme) => ({
                 backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.white,
                 height: '100vh',
