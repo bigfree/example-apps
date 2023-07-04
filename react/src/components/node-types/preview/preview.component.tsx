@@ -1,11 +1,10 @@
 import { Box } from '@mantine/core';
 import { FC, useEffect } from 'react';
 import { Background, BackgroundVariant, Node, ReactFlow, useNodesState } from 'reactflow';
-import { NodeTypeCreateInput } from '../../../__generated__/graphql';
 import ExampleNodeTypeNode from '../../../nodes/exampleNodeType.node';
-import useCreateNodeTypeStore from '../../../store/create-node-type.store';
+import usePreviewNodeTypeStore, { PreviewNodeType } from '../../../store/PreviewNodeType.store';
 
-const initialNodes: Node<NodeTypeCreateInput>[] = [{
+const initialNodes: Node<PreviewNodeType>[] = [{
     id: 'preview-id',
     type: 'previewNode',
     position: {
@@ -13,16 +12,17 @@ const initialNodes: Node<NodeTypeCreateInput>[] = [{
         y: 0,
     },
     data: {
-        name: ''
+        name: '',
+        nodeTypeData: {},
     },
 }];
 
 const nodeTypes = {
     previewNode: ExampleNodeTypeNode,
-}
+};
 
 const NodeTypesPreview: FC = (): JSX.Element => {
-    const nodeTypeInput: NodeTypeCreateInput = useCreateNodeTypeStore(store => store.nodeTypeInput);
+    const nodeTypeInput: PreviewNodeType = usePreviewNodeTypeStore(store => store.previewNodeType);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const NodeTypesPreview: FC = (): JSX.Element => {
             if ('preview-id' === node.id) {
                 node.data = {
                     ...node.data,
-                    name: nodeTypeInput.name,
+                    ...nodeTypeInput,
                 };
             }
 
@@ -49,13 +49,14 @@ const NodeTypesPreview: FC = (): JSX.Element => {
                 nodeTypes={nodeTypes}
                 onNodesChange={onNodesChange}
                 panOnDrag={false}
+                zoomOnScroll={false}
                 nodesFocusable={false}
                 nodesDraggable={false}
                 elementsSelectable={false}
                 defaultViewport={{
                     x: 0,
                     y: 0,
-                    zoom: 1
+                    zoom: 1,
                 }}
                 fitView={true}
                 fitViewOptions={{

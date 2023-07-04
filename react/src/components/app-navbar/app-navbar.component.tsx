@@ -1,7 +1,6 @@
 import { Navbar } from '@mantine/core';
-import { IconListCheck, IconUsers, IconSquareRoundedLetterA, TablerIconsProps } from '@tabler/icons-react';
+import { IconSquareRoundedLetterA, IconSquareRoundedLetterT, TablerIconsProps } from '@tabler/icons-react';
 import { FC } from 'react';
-import AppInfoComponent from './app-info/app-info.component';
 import AppNavbarLinkComponent from './app-navbar-link.component';
 
 export type LinkList = {
@@ -13,6 +12,10 @@ export type LinkList = {
 const linkList: LinkList[] = [{
     link: '/node-types',
     label: 'Node types',
+    icon: IconSquareRoundedLetterT,
+}, {
+    link: '/actions',
+    label: 'Actions',
     icon: IconSquareRoundedLetterA,
 }];
 

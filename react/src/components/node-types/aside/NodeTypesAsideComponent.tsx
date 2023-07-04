@@ -1,7 +1,8 @@
-import { Box, Flex } from '@mantine/core';
+import { Flex } from '@mantine/core';
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
-import NodeTypesListComponent from './list.component';
+import NodeTypesSearchComponent from '../search/NodeTypesSearch.component';
+import NodeTypesCreateContainerComponent from './NodeTypesCreateContainer.component';
+import NodeTypesListComponent from './NodeTypesList.component';
 
 const NodeTypesAsideComponent: FC = (): JSX.Element => {
     return (
@@ -10,17 +11,12 @@ const NodeTypesAsideComponent: FC = (): JSX.Element => {
             sx={(theme) => ({
                 flex: '0 0 360px',
                 borderRight: `1px solid ${theme.colors.gray[2]}`,
+                minHeight: 1,
             })}
         >
-            <div>
-                Search component
-            </div>
+            <NodeTypesSearchComponent />
             <NodeTypesListComponent />
-            <div>
-                <Box component={Link} to={'create'}>
-                    Create new node type
-                </Box>
-            </div>
+            <NodeTypesCreateContainerComponent />
         </Flex>
     );
 };

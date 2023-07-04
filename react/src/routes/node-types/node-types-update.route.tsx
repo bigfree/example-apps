@@ -1,9 +1,9 @@
 import { Flex } from '@mantine/core';
 import { FC } from 'react';
 import NodeTypesPreview from '../../components/node-types/preview/preview.component';
-import NodeTypesPropsCreateComponent from '../../components/node-types/props/NodeTypesPropsCreate.component';
+import NodeTypesPropsUpdateComponent from '../../components/node-types/props/NodeTypesPropsUpdate.component';
 
-const NodeTypesCreateRoute: FC = () => {
+const NodeTypesUpdateRoute: FC = () => {
     return (
         <Flex
             mih={'100%'}
@@ -15,10 +15,10 @@ const NodeTypesCreateRoute: FC = () => {
                 flex: 1,
             }}
         >
-            <NodeTypesPropsCreateComponent />
+            <NodeTypesPropsUpdateComponent />
             <NodeTypesPreview />
         </Flex>
     );
 };
 
-export default NodeTypesCreateRoute;
+export default NodeTypesUpdateRoute;

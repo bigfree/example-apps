@@ -1,6 +1,8 @@
-import { gql, makeVar, ReactiveVar, useQuery, useReactiveVar } from '@apollo/client';
+import { makeVar, ReactiveVar, useApolloClient, useReactiveVar } from '@apollo/client';
+import { useForm, UseFormReturnType } from '@mantine/form';
 import { nanoid } from 'nanoid';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { NodeType, NodeTypeCreateWithoutNodeInput, NodeTypeGeometryEnum } from '../__generated__/graphql';
 
 type Todo = {
     id: string;
@@ -8,7 +10,7 @@ type Todo = {
     __typename: string;
 }
 
-export const todoItemsVar: ReactiveVar<Todo[]> = makeVar<Todo[]>([]);
+// export const nodeTypeReactiveVar: ReactiveVar<NodeType> = makeVar<NodeType>([]);
 
 // export const GET_TODOS = gql`
 //     query GetTodos {
@@ -16,22 +18,54 @@ export const todoItemsVar: ReactiveVar<Todo[]> = makeVar<Todo[]>([]);
 //     }
 // `;
 
-const ReactiveVarsRoute: FC = (): JSX.Element => {
-    const todos: Todo[] = useReactiveVar(todoItemsVar);
+const ReactiveVarsRoute: FC = () => {
+    // const client = useApolloClient();
+    // const nodeType = useReactiveVar(nodeTypeReactiveVar);
+    // const todos: Todo[] = useReactiveVar(nodeTypeReactiveVar);
     // const { data, loading, error } = useQuery(GET_TODOS);
+
+    const form: UseFormReturnType<NodeTypeCreateWithoutNodeInput> = useForm<NodeTypeCreateWithoutNodeInput>({
+        initialValues: {
+            name: '',
+            externalId: '',
+            nodeTypeData: {
+                create: {
+                    color: '',
+                    acronym: '',
+                    description: '',
+                    geometry: NodeTypeGeometryEnum.Square,
+                    width: null,
+                    height: null,
+                },
+            },
+        },
+    });
+
+    // useEffect(() => {
+    //     client.writeQuery({
+    //         query: gql`
+    //             query
+    //         `
+    //     })
+    // }, [form.values]);
+
     return (
         <div>
+            <form>
+
+            </form>
             <button onClick={() => {
                 todoItemsVar(todos.concat([{
                     name: 'abc',
                     id: nanoid(),
                     __typename: 'Todo',
                 }]));
-            }}>Add todo</button>
-            <hr/>
-            {/*{JSON.stringify(data)}*/}
+            }}>Add todo
+            </button>
+            <hr />
+            {JSON.stringify(form.values)}
         </div>
-    )
-}
+    );
+};
 
 export default ReactiveVarsRoute;

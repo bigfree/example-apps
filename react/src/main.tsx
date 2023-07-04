@@ -1,20 +1,26 @@
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, split } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider, MantineTheme } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { LocalForageWrapper, persistCache } from 'apollo3-cache-persist';
 import { createClient } from 'graphql-ws';
 import * as localForage from 'localforage';
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ReactFlowProvider } from 'reactflow';
+import 'unfonts.css';
 import PlaygroundRoute from './playground/playground.route';
 import ReactiveVarsRoute from './playground/reactivevars.route';
+import ActionCreateRoute from './routes/actions/ActionCreate.route';
+import ActionsRoute from './routes/actions/Actions.route';
 import ErrorRoute from './routes/error.route';
 import NodeTypesCreateRoute from './routes/node-types/node-types-create.route';
+import NodeTypesUpdateRoute from './routes/node-types/node-types-update.route';
 import NodeTypesRoute from './routes/node-types/node-types.route';
 import RootRoute from './routes/root.route';
 
@@ -51,7 +57,7 @@ const cache: InMemoryCache = new InMemoryCache({
 });
 
 const wsLink = new GraphQLWsLink(createClient({
-    url: 'ws://localhost:4000',
+    url: 'ws://localhost:4000/graphql',
 }));
 
 const httpLink = new HttpLink({
@@ -76,23 +82,10 @@ await persistCache({
     maxSize: false,
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
     link: splitLink,
     cache,
     connectToDevTools: true,
-    resolvers: {
-        Mutation: {
-            addTodo: (_root, variables, { cache }) => {
-                cache.modify({
-                    id: cache.identify({
-                        __typename: 'TodoItem',
-                        id: variables.id,
-                    }),
-                    fields: {},
-                });
-            },
-        },
-    },
 });
 
 const router = createBrowserRouter([
@@ -117,6 +110,20 @@ const router = createBrowserRouter([
                     {
                         path: 'create',
                         element: <NodeTypesCreateRoute />,
+                    },
+                    {
+                        path: ':nodeTypeId',
+                        element: <NodeTypesUpdateRoute />,
+                    },
+                ],
+            },
+            {
+                path: 'actions',
+                element: <ActionsRoute />,
+                children: [
+                    {
+                        path: 'create',
+                        element: <ActionCreateRoute />,
                     },
                 ],
             },
@@ -199,36 +206,87 @@ const colors = {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ApolloProvider client={client}>
-        <ReactFlowProvider>
-            <MantineProvider withNormalizeCSS withGlobalStyles theme={{
-                colors: {
-                    // ...colors,
-                },
-                globalStyles: (theme) => ({
-                    'html, body': {
-                        width: '100%',
-                        maxHeight: '100vh',
-                        scrollBehavior: 'smooth',
+        <DndProvider backend={HTML5Backend}>
+            <ReactFlowProvider>
+                <MantineProvider withNormalizeCSS withGlobalStyles theme={{
+                    fontFamily: 'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji',
+                    defaultRadius: 0,
+                    colors: {
+                        // ...colors,
                     },
-                    '#root': {
-                        height: '100vh',
+                    globalStyles: (theme) => ({
+                        'html, body': {
+                            width: '100%',
+                            maxHeight: '100vh',
+                            scrollBehavior: 'smooth',
+                        },
+                        '#root': {
+                            height: '100vh',
+                        },
+                        '::-webkit-scrollbar': {
+                            width: 8,
+                        },
+                        '::-webkit-scrollbar-track': {
+                            background: theme.colors.gray[0],
+                        },
+                        '::-webkit-scrollbar-thumb': {
+                            background: theme.colors.gray[3],
+                        },
+                        '::-webkit-scrollbar-thumb:hover': {
+                            background: theme.colors.gray[4],
+                        },
+                    }),
+                    components: {
+                        TextInput: {
+                            styles: () => ({
+                                label: {
+                                    marginBottom: '0.3rem',
+                                },
+                            }),
+                        },
+                        NumberInput: {
+                            styles: () => ({
+                                label: {
+                                    marginBottom: '0.3rem',
+                                },
+                            }),
+                        },
+                        ColorInput: {
+                            styles: () => ({
+                                label: {
+                                    marginBottom: '0.3rem',
+                                },
+                            }),
+                        },
+                        Select: {
+                            styles: () => ({
+                                label: {
+                                    marginBottom: '0.3rem',
+                                },
+                            }),
+                        },
+                        Textarea: {
+                            styles: () => ({
+                                label: {
+                                    marginBottom: '0.3rem',
+                                },
+                            }),
+                        },
+                        Button: {
+                            styles: (theme: MantineTheme) => ({
+                                root: {
+                                    boxShadow: `3px 3px 0 0 ${theme.fn.rgba(theme.fn.primaryColor(), 0.4)}`,
+                                },
+                            }),
+                        },
                     },
-                }),
-                components: {
-                    // Header: {
-                    //     styles: (theme, params, {variant}) => ({
-                    //         root: {
-                    //             backgroundColor: theme.colors[params.color || theme.primaryColor][0]
-                    //         }
-                    //     })
-                    // }
-                },
-            }}>
-                <RouterProvider router={router} />
-                <ModalsProvider>
-                    <Notifications />
-                </ModalsProvider>
-            </MantineProvider>
-        </ReactFlowProvider>
+                }}>
+                    <RouterProvider router={router} />
+                    <ModalsProvider>
+                        <Notifications containerWidth={300} />
+                    </ModalsProvider>
+                </MantineProvider>
+            </ReactFlowProvider>
+        </DndProvider>
     </ApolloProvider>,
 );

@@ -1,9 +1,9 @@
 import { Flex } from '@mantine/core';
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import NodeTypesAsideComponent from '../../components/node-types/aside/aside.component';
+import NodeTypesAsideComponent from '../../components/node-types/aside/NodeTypesAsideComponent';
 
-const NodeTypesRoute: FC = (): JSX.Element => {
+const NodeTypesRoute: FC = () => {
     return (
         <Flex
             mih={'100%'}

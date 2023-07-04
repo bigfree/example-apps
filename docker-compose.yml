@@ -1,16 +1,28 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:latest
+  #  postgres:
+  #    container_name: postgres
+  #    image: postgres:latest
+  #    volumes:
+  #      - postgres_volume:/var/lib/postgresql/data
+  #    environment:
+  #      POSTGRES_USER: postgres
+  #      POSTGRES_PASSWORD: postgres
+  #    ports:
+  #      - "5432:5432"
+
+  mongo:
+    container_name: mongo
+    image: prismagraphql/mongo-single-replica:5.0.3
     volumes:
-      - postgres_volume:/var/lib/postgresql/data
+      - mongodb_volume:/data/db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: prisma
+      INIT_WAIT_SEC: 3
     ports:
-      - "5432:5432"
+      - "27017:27017"
 
   redis:
     container_name: redis
@@ -21,12 +33,12 @@ services:
       ALLOW_EMPTY_PASSWORD: yes
       REDIS_HOST: 127.0.0.1
     ports:
-      - "6379:6379"
+      - '6379:6379'
 
   nest_app:
     container_name: nest_app
     depends_on:
-      - postgres
+      - mongo
       - redis
     build:
       context: ./nestjs

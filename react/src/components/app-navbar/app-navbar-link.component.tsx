@@ -1,4 +1,4 @@
-import { Box, getStylesRef, Text } from '@mantine/core';
+import { Box, getStylesRef } from '@mantine/core';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { LinkList } from './app-navbar.component';
@@ -29,10 +29,7 @@ const AppNavbarLinkComponent: FC<AppNavbarLinkProps> = ({ link }): JSX.Element =
                 },
             },
         })}>
-            <link.icon stroke={1.8} size={34} sx={(theme) => ({
-                ref: getStylesRef('icon'),
-                color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
-            })} />
+            <link.icon stroke={1.8} size={34}/>
             {/*<Text pl={'xs'}>{link.label}</Text>*/}
         </Box>
     );

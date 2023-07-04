@@ -33,6 +33,8 @@
     "localforage": "^1.10.0",
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
     "reactflow": "^11.7.0",
@@ -42,6 +44,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/client-preset": "^3.0.1",
+    "@nabla/vite-plugin-eslint": "^1.5.0",
     "@types/localforage": "^0.0.34",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -51,6 +54,7 @@
     "eslint": "^8.39.0",
     "eslint-plugin-react": "^7.32.2",
     "typescript": "^5.0.4",
+    "unplugin-fonts": "^1.0.3",
     "vite": "^4.1.0"
   }
 }

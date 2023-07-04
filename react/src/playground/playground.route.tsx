@@ -81,8 +81,7 @@ const PlaygroundRoute: FC = (): JSX.Element => {
     });
 
     const {data: tasksSubData, loading} = useSubscription(TASKS_SUBSCRIPTION, {
-        onData(newTask: OnDataOptions<Subscription>) {
-            console.log(newTask.data.data?.taskAdded.id);
+        async onData(newTask: OnDataOptions<Subscription>) {
             notifications.show({
                 id: 'create-task-success',
                 title: 'Create new task',
@@ -90,6 +89,10 @@ const PlaygroundRoute: FC = (): JSX.Element => {
                 autoClose: 3000,
                 icon: <IconCheck size='1.2rem' />,
                 withCloseButton: false,
+            });
+
+            await client.refetchQueries({
+                include: [GET_TASKS],
             });
         }
     });
